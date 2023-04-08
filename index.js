@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./database/database');
+
 const categoriesController = require('./categories/CategoriesController');
 const artilesController = require('./articles/ArticlesController');
 

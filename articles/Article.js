@@ -21,6 +21,6 @@ const Article = sequelize.define('articles', {
 Category.hasMany(Article); // Uma Category tem muitos artigos
 Article.belongsTo(Category); // Um Article Pertece a Uma Category
 
-/* //Article.sync({ force: true }); // Roda Apenas uma vez quando abrir o servidor funcionar depois pode excluir  */
+/* //Article.sync({ force: true }); // Roda Apenas uma vez quando abrir o servidor. force:true =>  indica que as tabelas já existentes serão excluídas e recriadas do zero, caso já existam. Por isso pode excluir o comando depois que a tabela foi criada*/
 
 module.exports = Article;
