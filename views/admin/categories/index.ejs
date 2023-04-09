@@ -30,7 +30,7 @@
                   <%= categories.slug %>
                 </th>
                 <th>
-                  <button class="btn btn-warning">Editar</button>
+                  <a href="/admin/categories/edit/<%= categories.id %>" class="btn btn-warning">Editar</a>
 
                   <form onsubmit="confirmDeletion(event, this)" method="POST" action="/categories/delete"
                     style="display: inline">
