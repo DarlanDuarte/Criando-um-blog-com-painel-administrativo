@@ -9,7 +9,16 @@
         <div class="card-body">
           <form action="" method="">
             <input class="form-control" type="text" name="title" placeholder="Defina o titulo do artigo"><br>
-            <textarea class="form-control" name="body" placeholder="Escreva o artigo aqui!"></textarea><br>
+            <textarea class="form-control" name="body" placeholder="Escreva o artigo aqui!"
+              id="articles"></textarea><br>
+            <label> Categoria </label>
+            <select class="form-control" name="category">
+              <% categories.forEach((categories)=>{ %>
+                <option value="<%= categories.id %>">
+                  <%= categories.title %>
+                </option>
+                <% }) %>
+            </select><br>
             <button class="btn btn-success">Cadastrar</button>
           </form>
         </div>
@@ -17,7 +26,16 @@
     </div>
 
 
-
-
-
     <%- include('../../partials/footer.ejs') %>
+
+      <script src="/tinymce/tinymce.min.js"></script>
+      <script>
+        tinymce.init({
+          language: 'pt_BR',
+          selector: '#articles',
+          plugins:
+            'advlist autolink link print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+          ,
+          toolbar: 'emoticons'
+        })
+      </script>

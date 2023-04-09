@@ -4,18 +4,18 @@ const sequelize = require('../database/database');
 const Category = require('../categories/Category');
 
 const Article = sequelize.define('articles', {
-   title: {
-      type: Sequelize.STRING,
-      allowNull: false,
-   },
-   slug: {
-      type: Sequelize.STRING,
-      allowNull: false,
-   },
-   body: {
-      type: Sequelize.TEXT,
-      allowNull: false,
-   },
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  slug: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  body: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
 });
 
 Category.hasMany(Article); // Uma Category tem muitos artigos
