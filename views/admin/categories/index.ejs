@@ -1,40 +1,58 @@
 <%- include('../../partials/header.ejs') %>
-   <%- include('../../partials/navbar.ejs') %>
+  <%- include('../../partials/navbar.ejs') %>
 
-      <div class="container">
-         <br>
-         <div class="card">
-            <div class="card-header">
-               <h2>Tabela de Categorias</h2>
-            </div>
-            <table class="table table-bordered">
-               <thead>
-                  <tr>
-                     <th>Id</th>
-                     <th>Titulo</th>
-                     <th>Slug</th>
-                     <th>Ações</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <th>1</th>
-                     <th>Dev Web</th>
-                     <th>dev-web</th>
-                  </tr>
-                  <tr>
-                     <th>2</th>
-                     <th>Dev Web</th>
-                     <th>dev-web</th>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
+    <div class="container-md">
+      <br>
+      <div class="card">
+        <div class="card-header">
+          <h2>Tabela de Categorias</h2>
+          <a href="/admin/categories/new" class="btn btn-success">Criar nova categoria</a>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Titulo</th>
+              <th>Slug</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% categories.forEach((categories)=>{ %>
+              <tr>
+                <th>
+                  <%= categories.id %>
+                </th>
+                <th>
+                  <%= categories.title %>
+                </th>
+                <th>
+                  <%= categories.slug %>
+                </th>
+                <th>
+                  <button class="btn btn-warning">Editar</button>
+
+                  <form onsubmit="confirmDeletion(event, this)" method="POST" action="/categories/delete"
+                    style="display: inline">
+                    <input type="hidden" name="id" value="<%= categories.id %>">
+                    <button class="btn btn-danger">Deletar</button>
+                  </form>
+                </th>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
       </div>
+    </div>
+    <%- include('../../partials/footer.ejs') %>
+      <script>
+        function confirmDeletion(e, form) {
+          e.preventDefault()
+          const decision = confirm('Voçe gostaria de deletar essa categoria?')
 
+          if (decision) {
+            form.submit()
+          }
 
-
-
-
-
-      <%- include('../../partials/footer.ejs') %>
+        }
+      </script>
