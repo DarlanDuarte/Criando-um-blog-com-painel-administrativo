@@ -1,7 +1,7 @@
 <%- include('../../partials/header.ejs') %>
   <%- include('../../partials/navbar.ejs') %>
 
-    <div class="container-md">
+    <div class="container">
       <br>
       <div class="card">
         <div class="card-header">
@@ -20,16 +20,16 @@
           <tbody>
             <% categories.forEach((categories)=>{ %>
               <tr>
-                <th>
+                <td>
                   <%= categories.id %>
-                </th>
-                <th>
+                </td>
+                <td>
                   <%= categories.title %>
-                </th>
-                <th>
+                </td>
+                <td>
                   <%= categories.slug %>
-                </th>
-                <th>
+                </td>
+                <td>
                   <a href="/admin/categories/edit/<%= categories.id %>" class="btn btn-warning">Editar</a>
 
                   <form onsubmit="confirmDeletion(event, this)" method="POST" action="/categories/delete"
@@ -37,7 +37,7 @@
                     <input type="hidden" name="id" value="<%= categories.id %>">
                     <button class="btn btn-danger">Deletar</button>
                   </form>
-                </th>
+                </td>
               </tr>
               <% }) %>
           </tbody>
