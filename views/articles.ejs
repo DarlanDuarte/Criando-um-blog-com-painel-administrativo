@@ -1,0 +1,23 @@
+<%- include('partials/header.ejs') %>
+  <%- include('partials/homeNavbar.ejs') %>
+
+    <div class="container"><br>
+      <div class="card">
+        <div class="card-header">
+          <h2>
+            <%= articles.title %>
+          </h2>
+        </div>
+        <div class="card-body">
+          <!-- Aqui para a formataçao vim junto com o artigo body esta se usando o < %- %> ao inves do < %= %> -->
+          <%- articles.body %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <%- include('partials/footer.ejs') %>
