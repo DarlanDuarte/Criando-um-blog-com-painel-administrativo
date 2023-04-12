@@ -35,7 +35,10 @@
                     <%= article.category.title %>
                   </td>
                   <td>
-                    <form onsubmit="confirmDeletion(event, this)" action="/articles/deletar" method="post">
+                    <a href="/admin/articles/edit/<%= article.id %>" class="btn btn-warning">Editar</a>
+
+                    <form onsubmit="confirmDeletion(event, this)" action="/articles/deletar" method="post"
+                      style="display: inline">
                       <input type="hidden" name="id" value="<%= article.id %>">
                       <button class="btn btn-danger">Deletar</button>
                     </form>

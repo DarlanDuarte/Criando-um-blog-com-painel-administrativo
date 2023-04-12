@@ -1,0 +1,52 @@
+<%- include('../../partials/header.ejs') %>
+  <%- include('../../partials/navbar.ejs') %>
+
+    <div class="container"><br>
+      <div class="card">
+        <div class="card-header">
+          <h1>Atualizar Artigo</h1>
+        </div>
+        <div class="card-body">
+          <form action="/articles/update" method="post">
+            <input type="hidden" name="id" value="<%= articles.id %>">
+            <input class="form-control" type="text" name="title" value="<%= articles.title %>">
+            <textarea name="body" id="articles" class="form-control"></textarea><br>
+            <label>Editar Categoria:</label>
+            <select name="category" class="form-control">
+              <% categories.forEach((categories)=>{ %>
+                <% if(categories.id==articles.categoryId){ %>
+
+                  <option selected value="<%= categories.id %>">
+                    <%= categories.title %>
+                  </option>
+
+                  <%}else{ %>
+                    <option value="<%= categories.id %>">
+                      <%= categories.title %>
+
+                        <%}%>
+
+                          <%})%>
+            </select><br>
+            <button class="btn btn-success">Atualizar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+    <%- include('../../partials/footer.ejs') %>
+
+      <script src="/tinymce/tinymce.min.js"></script>
+      <script>
+        tinymce.init({
+          language: 'pt_BR',
+          selector: 'textarea',
+          activeEditor: true,
+          plugins: 'advlist autolink  link preview searchreplace wordcount fullscreen insertdatetime media save table emoticons lists advlist',
+          init_instance_callback: () => {
+            tinymce.get("articles").setContent('<%- JSON.stringify(articles.body) %>')
+          }
+        })
+      </script>
