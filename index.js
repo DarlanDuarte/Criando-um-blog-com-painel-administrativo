@@ -4,9 +4,11 @@ const sequelize = require('./database/database');
 
 const categoriesController = require('./categories/CategoriesController');
 const artilesController = require('./articles/ArticlesController');
+const userController = require('./users/UserController');
 
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
+const User = require('./users/User');
 
 const app = express();
 
@@ -23,6 +25,7 @@ sequelize
 
 app.use('/', categoriesController);
 app.use('/', artilesController);
+app.use('/', userController);
 
 app.get('/', (req, res) => {
   Article.findAll({
