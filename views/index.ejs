@@ -10,8 +10,8 @@
       </div><br>
 
 
-      <div class="card">
-        <% articles.forEach((articles)=>{ %>
+      <% articles.forEach((articles)=>{ %>
+        <div class="card">
           <div class="card-header">
             <h2>
               <%= articles.title %>
@@ -20,8 +20,17 @@
           <div class="card-body">
             <a href="/<%= articles.slug %>" class="btn btn-info">Ler Artigo</a>
           </div>
-          <%}) %>
-      </div>
+        </div><br>
+        <%}) %>
+
+          <div class="row">
+            <div class="col col-12">
+              <a style="float: right;" href="/articles/page/2">Next >>></a>
+            </div>
+          </div><br>
+
     </div>
+
+
 
     <%- include('./partials/footer.ejs') %>

@@ -100,4 +100,43 @@ router.post('/articles/update', (req, res) => {
     });
 });
 
+router.get('/articles/page/:num', (req, res) => {
+  let page = req.params.num;
+  let offset = 0;
+
+  if (isNaN(page) || page == 1) {
+    offset = 0;
+  } else {
+    offset = (parseInt(page) - 1) * 4;
+  }
+
+  /* findAndCountAll => retorna duas coisas a count e as rows */
+  Articles.findAndCountAll({
+    limit: 4,
+    offset: offset,
+    order: [['id', 'DESC']],
+  }).then(articles => {
+    let next;
+
+    if (offset + 4 >= articles.count) {
+      next = false;
+    } else {
+      next = true;
+    }
+
+    const result = {
+      page: parseInt(page),
+      next: next,
+      articles: articles,
+    };
+
+    Category.findAll().then(categories => {
+      res.render('admin/articles/page', {
+        categories: categories,
+        result: result,
+      });
+    });
+  });
+});
+
 module.exports = router;
