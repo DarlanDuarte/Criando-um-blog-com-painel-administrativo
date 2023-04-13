@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./database/database');
+let session = require('express-session');
 
 const categoriesController = require('./categories/CategoriesController');
 const artilesController = require('./articles/ArticlesController');
@@ -18,6 +19,16 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+//Express-Session
+app.use(
+  session({
+    secret: 'mysecret',
+    cookie: { maxAge: 3000000 },
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
+
 sequelize
   .authenticate()
   .then(() => console.log(`Conexão com o banco de dados feita com sucesso!`))
@@ -26,6 +37,27 @@ sequelize
 app.use('/', categoriesController);
 app.use('/', artilesController);
 app.use('/', userController);
+
+app.get('/session', (req, res) => {
+  req.session.treinamento = 'Formação Node.Js';
+  req.session.ano = 2023;
+  req.session.email = 'email@email.com';
+  req.session.user = {
+    username: 'DarlanDuarte',
+    email: 'darlan@email.com',
+    id: 10,
+  };
+  res.send('Sessao foi gerada');
+});
+
+app.get('/leitura', (req, res) => {
+  res.json({
+    treinamento: req.session.treinamento,
+    ano: req.session.ano,
+    email: req.session.email,
+    user: req.session.user,
+  });
+});
 
 app.get('/', (req, res) => {
   Article.findAll({

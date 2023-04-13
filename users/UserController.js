@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 router.get('/admin/users', (req, res) => {
   User.findAll().then(users => {
-    res.render('admin/users', { users: users });
+    res.render('admin/users/index', { users: users });
   });
 });
 
@@ -31,7 +31,7 @@ router.post('/users/create', (req, res) => {
         password: hash,
       })
         .then(() => {
-          res.redirect('/');
+          res.redirect('/admin/users');
         })
         .catch(() => {
           res.redirect('/admin/users/create');
@@ -40,6 +40,42 @@ router.post('/users/create', (req, res) => {
       res.redirect('/admin/users/create');
     }
   });
+});
+
+router.get('/login', (req, res) => {
+  res.render('admin/users/login');
+});
+
+router.post('/authenticate', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.findOne({
+    where: {
+      email: email,
+    },
+  }).then(users => {
+    if (users != undefined) {
+      let correct = bcrypt.compareSync(password, users.password);
+
+      if (correct) {
+        req.session.users = {
+          id: users.id,
+          email: users.email,
+        };
+        res.redirect('/');
+      } else {
+        res.redirect('/login');
+      }
+    } else {
+      res.redirect('/login');
+    }
+  });
+});
+
+router.get('/logout', (req, res) => {
+  req.session.users = undefined;
+  res.redirect('/login');
 });
 
 module.exports = router;
